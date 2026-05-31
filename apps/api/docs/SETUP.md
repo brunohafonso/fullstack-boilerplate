@@ -204,6 +204,9 @@ npm run test:all
 **Problem**: `tsx` command not found
 **Solution**: Run `npm install` from either the monorepo root or `apps/api` to install dev dependencies.
 
+**Problem**: `better-sqlite3` native binding errors (e.g. `Could not locate the bindings file`)
+**Solution**: Run `npm rebuild` inside `apps/api` to recompile the native addon against the current Node.js version. This is commonly needed after upgrading Node.js or switching machines.
+
 ---
 
 ## Next Steps

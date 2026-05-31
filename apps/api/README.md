@@ -143,6 +143,9 @@ npm run test:integration
 # Run all tests
 npm run test:all
 
+# Build (compile TypeScript to dist/)
+npm run build
+
 # Lint
 npm run lint
 npm run lint:fix
@@ -164,6 +167,9 @@ npm run db:studio      # Open Prisma Studio
 
 **Problem**: Integration tests fail with database errors
 **Solution**: The integration tests use `.env.test`. Make sure `DATABASE_URL` is set there and run `npm run test:integration` (it pushes the schema automatically before tests).
+
+**Problem**: `better-sqlite3` native binding errors (e.g. `Could not locate the bindings file`)
+**Solution**: Run `npm rebuild` inside `apps/api` to recompile the native addon against the current Node.js version. This is commonly needed after upgrading Node.js or switching machines.
 
 ## Further Reading
 

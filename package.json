@@ -13,6 +13,7 @@
     "test:all:api": "npm run test:all --workspace=apps/api",
     "test:web": "npm run test --workspace=apps/web",
     "lint:api": "npm run lint --workspace=apps/api",
+    "build:api": "npm run build --workspace=apps/api",
     "lint:fix:api": "npm run lint:fix --workspace=apps/api",
     "prepare": "husky"
   },
