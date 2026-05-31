@@ -1,0 +1,38 @@
+{
+  "name": "fullstack-boilerplate",
+  "private": true,
+  "workspaces": [
+    "apps/api",
+    "apps/web"
+  ],
+  "scripts": {
+    "dev:api": "npm run dev --workspace=apps/api",
+    "dev:web": "npm run dev --workspace=apps/web",
+    "test:unit:api": "npm run test:unit --workspace=apps/api",
+    "test:integration:api": "npm run test:integration --workspace=apps/api",
+    "test:all:api": "npm run test:all --workspace=apps/api",
+    "test:web": "npm run test --workspace=apps/web",
+    "lint:api": "npm run lint --workspace=apps/api",
+    "lint:fix:api": "npm run lint:fix --workspace=apps/api",
+    "prepare": "husky"
+  },
+  "lint-staged": {
+    "apps/api/**/*.{ts,js}": [
+      "eslint --fix",
+      "bash -c 'cd apps/api && NODE_OPTIONS=--experimental-vm-modules jest --config jest.config.js --findRelatedTests --passWithNoTests --testPathPatterns=\"\\.spec\\.ts$\" -- \"$@\"' --"
+    ],
+    "apps/web/**/*.{ts,tsx,js,jsx}": [
+      "prettier --write"
+    ]
+  },
+  "devDependencies": {
+    "@commitlint/cli": "^21.0.2",
+    "@commitlint/config-conventional": "^21.0.2",
+    "@types/better-sqlite3": "^7.6.13",
+    "@types/node": "^25.9.1",
+    "husky": "^9.1.7",
+    "lint-staged": "^17.0.7",
+    "prettier": "3.8.3",
+    "prisma": "^7.8.0"
+  }
+}
