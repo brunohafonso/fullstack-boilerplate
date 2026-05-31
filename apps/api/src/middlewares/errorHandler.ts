@@ -10,7 +10,7 @@ export function errorHandler(logger: ILogger) {
 			if (err.isOperational) {
 				logger.warn('operational error', { code: err.code, status: err.status, description: err.description });
 
-				const body: Record<string, unknown> = { error: err.description, code: err.code };
+				const body: Record<string, unknown> = { message: err.description, code: err.code };
 
 				res.status(err.status).json({
 					...body,
@@ -24,6 +24,6 @@ export function errorHandler(logger: ILogger) {
 			logger.error('unexpected error', err instanceof Error ? err : new Error(String(err)));
 		}
 
-		res.status(httpStatus.INTERNAL_SERVER_ERROR).json({ error: 'Internal server error' });
+		res.status(httpStatus.INTERNAL_SERVER_ERROR).json({ message: 'Internal server error' });
 	};
 }

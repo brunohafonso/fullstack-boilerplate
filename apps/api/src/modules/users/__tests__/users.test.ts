@@ -5,6 +5,7 @@ import supertest from 'supertest';
 import { App } from '../../../App';
 import { prisma } from '../../../lib/prisma';
 import type { ILogger } from '../../../shared/types';
+import { ErrorCodes } from '../errors';
 import { makeUserInput } from './fixtures.js';
 
 const noopLogger: ILogger = {
@@ -64,7 +65,7 @@ describe('GET /users/:id', () => {
 		const res = await request.get('/users/99999');
 
 		expect(res.status).toBe(StatusCodes.NOT_FOUND);
-		expect(res.body).toMatchObject({ message: 'User not found' });
+		expect(res.body).toMatchObject({ message: 'User not found', code: ErrorCodes.USER_NOT_FOUND });
 	});
 
 	it('returns 400 with validationErrors when id is not a number', async () => {
@@ -72,7 +73,7 @@ describe('GET /users/:id', () => {
 
 		expect(res.status).toBe(StatusCodes.BAD_REQUEST);
 		expect(res.body).toMatchObject({
-			error: 'Validation failed',
+			message: 'Validation failed',
 			code: 'MISSING_OR_INVALID_PARAMETERS',
 			validationErrors: expect.arrayContaining([expect.objectContaining({ fieldName: 'id' })]),
 		});
@@ -103,7 +104,7 @@ describe('POST /users', () => {
 
 		expect(res.status).toBe(StatusCodes.BAD_REQUEST);
 		expect(res.body).toMatchObject({
-			error: 'Validation failed',
+			message: 'Validation failed',
 			code: 'MISSING_OR_INVALID_PARAMETERS',
 			validationErrors: expect.arrayContaining([expect.objectContaining({ fieldName: 'email' })]),
 		});
@@ -114,7 +115,7 @@ describe('POST /users', () => {
 
 		expect(res.status).toBe(StatusCodes.BAD_REQUEST);
 		expect(res.body).toMatchObject({
-			error: 'Validation failed',
+			message: 'Validation failed',
 			code: 'MISSING_OR_INVALID_PARAMETERS',
 			validationErrors: expect.arrayContaining([expect.objectContaining({ fieldName: 'email' })]),
 		});
@@ -135,7 +136,7 @@ describe('PATCH /users/:id', () => {
 		const res = await request.patch('/users/99999').send({ name: 'Ghost' });
 
 		expect(res.status).toBe(StatusCodes.NOT_FOUND);
-		expect(res.body).toMatchObject({ message: 'User not found' });
+		expect(res.body).toMatchObject({ message: 'User not found', code: ErrorCodes.USER_NOT_FOUND });
 	});
 
 	it('returns 400 with validationErrors when id is not a number', async () => {
@@ -143,7 +144,7 @@ describe('PATCH /users/:id', () => {
 
 		expect(res.status).toBe(StatusCodes.BAD_REQUEST);
 		expect(res.body).toMatchObject({
-			error: 'Validation failed',
+			message: 'Validation failed',
 			code: 'MISSING_OR_INVALID_PARAMETERS',
 			validationErrors: expect.arrayContaining([expect.objectContaining({ fieldName: 'id' })]),
 		});
@@ -156,7 +157,7 @@ describe('PATCH /users/:id', () => {
 
 		expect(res.status).toBe(StatusCodes.BAD_REQUEST);
 		expect(res.body).toMatchObject({
-			error: 'Validation failed',
+			message: 'Validation failed',
 			code: 'MISSING_OR_INVALID_PARAMETERS',
 			validationErrors: expect.arrayContaining([expect.objectContaining({ fieldName: 'email' })]),
 		});
@@ -177,7 +178,7 @@ describe('DELETE /users/:id', () => {
 		const res = await request.delete('/users/99999');
 
 		expect(res.status).toBe(StatusCodes.NOT_FOUND);
-		expect(res.body).toMatchObject({ message: 'User not found' });
+		expect(res.body).toEqual({ message: 'User not found', code: ErrorCodes.USER_NOT_FOUND });
 	});
 
 	it('returns 400 with validationErrors when id is not a number', async () => {
@@ -185,7 +186,7 @@ describe('DELETE /users/:id', () => {
 
 		expect(res.status).toBe(StatusCodes.BAD_REQUEST);
 		expect(res.body).toMatchObject({
-			error: 'Validation failed',
+			message: 'Validation failed',
 			code: 'MISSING_OR_INVALID_PARAMETERS',
 			validationErrors: expect.arrayContaining([expect.objectContaining({ fieldName: 'id' })]),
 		});

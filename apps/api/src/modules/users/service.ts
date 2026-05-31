@@ -1,6 +1,7 @@
 import type { Prisma, User } from '../../generated/prisma/index';
 import { prisma } from '../../lib/prisma';
 import { NotFoundError } from '../../shared/errors';
+import { ErrorCodes } from './errors';
 import type { IUsersService } from './types';
 
 export class UsersService implements IUsersService {
@@ -10,7 +11,7 @@ export class UsersService implements IUsersService {
 
 	async findById(id: number): Promise<User> {
 		const user = await prisma.user.findUnique({ where: { id } });
-		if (!user) throw new NotFoundError('User not found', 'USER_NOT_FOUND');
+		if (!user) throw new NotFoundError('User not found', ErrorCodes.USER_NOT_FOUND);
 		return user;
 	}
 
@@ -20,13 +21,13 @@ export class UsersService implements IUsersService {
 
 	async update(id: number, data: Prisma.UserUpdateInput): Promise<User> {
 		const user = await prisma.user.update({ where: { id }, data }).catch(() => null);
-		if (!user) throw new NotFoundError('User not found', 'USER_NOT_FOUND');
+		if (!user) throw new NotFoundError('User not found', ErrorCodes.USER_NOT_FOUND);
 		return user;
 	}
 
 	async delete(id: number): Promise<User> {
 		const user = await prisma.user.delete({ where: { id } }).catch(() => null);
-		if (!user) throw new NotFoundError('User not found', 'USER_NOT_FOUND');
+		if (!user) throw new NotFoundError('User not found', ErrorCodes.USER_NOT_FOUND);
 		return user;
 	}
 }
