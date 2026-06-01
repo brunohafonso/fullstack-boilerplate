@@ -1,5 +1,5 @@
-# Created by https://www.toptal.com/developers/gitignore/api/node,nextjs
-# Edit at https://www.toptal.com/developers/gitignore?templates=node,nextjs
+# Created by https://www.toptal.com/developers/gitignore/api/node,nextjs,visualstudiocode
+# Edit at https://www.toptal.com/developers/gitignore?templates=node,nextjs,visualstudiocode
 
 ### NextJS ###
 # dependencies
@@ -172,9 +172,18 @@ dist
 # SvelteKit build / generate output
 .svelte-kit
 
-# End of https://www.toptal.com/developers/gitignore/api/node,nextjs
+### VisualStudioCode ###
+.vscode/
 
-# Prisma
-*.db
-*.db-journal
-apps/api/src/generated/
+# Local History for Visual Studio Code
+.history/
+
+# Built Visual Studio Code Extensions
+*.vsix
+
+### VisualStudioCode Patch ###
+# Ignore all local history of files
+.history
+.ionide
+
+# End of https://www.toptal.com/developers/gitignore/api/node,nextjs,visualstudiocode
