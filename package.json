@@ -23,7 +23,8 @@
       "bash -c 'cd apps/api && NODE_OPTIONS=--experimental-vm-modules jest --config jest.config.js --findRelatedTests --passWithNoTests --testPathPatterns=\"\\.spec\\.ts$\" -- \"$@\"' --"
     ],
     "apps/web/**/*.{ts,tsx,js,jsx}": [
-      "prettier --write"
+      "prettier --write",
+      "bash -c 'cd apps/web && npx vitest run --reporter=verbose --passWithNoTests' --"
     ]
   },
   "devDependencies": {
