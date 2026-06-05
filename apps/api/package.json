@@ -5,6 +5,7 @@
   "type": "module",
   "main": "dist/src/index.js",
   "scripts": {
+    "start": "node",
     "start:dev": "dotenv -e .env.development -- tsx watch src/index.ts",
     "lint": "eslint .",
     "lint:fix": "eslint . --fix",
